@@ -18,37 +18,43 @@ db.then(() => {
 const collection = db.get('gear')
 
 app.use(bodyParser.json())
-
+//get all entries
 app.get('/', async (req, res) => {
     const result= await collection.find({})
-    return res.status(200).send(result)})
+    return res.status(200).send(result)
+})
+app.get('/category/:category', async (req, res) =>{
+    const result = await collection.find({category: req.params.category}, {})
+    return res.status(200).send(result)
+})
 
+//get one by id
+app.get('/:id', async (req, res) =>{
+    const result = await collection.find(req.params.id)
+    return res.status(200).send(result)
+})
+//get one by catagory
 
+//post a new entry
 app.post('/', async (req, res)=>{
     const result = await collection.insert(req.body)
     return res.status(200).send(result)
 
 })
-
+//delete one entry by id
 app.delete('/', async (req, res)=>{
     await collection.findOneAndDelete(req.body)
     return res.status(200).send(await collection.find())    
 })
-app.delete('/', async (req, res)=>{
-    await collection.findManyAndDelete(req.body)
+//Not working yet
+app.delete('/:id', async (req, res)=>{
+    await collection.findManyAndDelete(req.params.id)
     return res.status(200).send(await collection.find()) 
 })
-
+//update by id
 app.put('/:id', async (req, res)=>{
     const result = await collection.findOneAndUpdate(req.params.id, req.body)
    return res.status(200).send(result)
 })
-
-
-// collection.insert([])
-// .then((doc) =>{
-//    doc.stringify()
-// }).catch((err)=>{   
-// }).then(()=>db.close())
    
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
