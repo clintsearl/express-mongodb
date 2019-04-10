@@ -5,8 +5,10 @@ const bodyParser = require("body-parser")
 const monk = require('monk')
 // const MongoClient = require("mongodb").MongoClient
 // const ObjectId = require("mongodb").ObjectID
-//All of the instances within the url it is called gearList that is the name of the database cluster
+// All of the instances within the url it is called gearList that is the name of the database cluster
 const url = 'mongodb://clintse:clintspassword@gearlist-shard-00-00-nroed.mongodb.net:27017,gearlist-shard-00-01-nroed.mongodb.net:27017,gearlist-shard-00-02-nroed.mongodb.net:27017/gearList?ssl=true&replicaSet=gearList-shard-0&authSource=admin&retryWrites=true'
+// const url= 'mongodb+srv://clintse:clintspassword@gearlist-nroed.mongodb.net/test?retryWrites=true'
+
 const db = monk(url);
 db.then(() => {
   console.log('Connected correctly to server')
@@ -32,12 +34,14 @@ app.delete('/', async (req, res)=>{
     await collection.findOneAndDelete(req.body)
     return res.status(200).send(await collection.find())    
 })
+app.delete('/', async (req, res)=>{
+    await collection.findManyAndDelete(req.body)
+    return res.status(200).send(await collection.find()) 
+})
 
-app.put('/', async (req, res)=>{
-    const result= await collection.find(headers)
-    .then(collection.findOneAndUpdate(req.body))
+app.put('/:id', async (req, res)=>{
+    const result = await collection.findOneAndUpdate(req.params.id, req.body)
    return res.status(200).send(result)
-
 })
 
 
