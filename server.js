@@ -44,7 +44,7 @@ app.post('/', async (req, res)=>{
 
 })
 //delete one entry by id
-app.delete('/', async (req, res)=>{
+app.delete('/gearlist/', async (req, res)=>{
     await collection.findOneAndDelete(req.body)
     return res.status(200).send(await collection.find())    
 })
