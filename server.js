@@ -31,7 +31,9 @@ app.get('/category/:category', async (req, res) =>{
 
 //get one by id 
 app.get('/:id', async (req, res) =>{
-    const result = await collection.find(req.params.id)
+    console.log("you found me")
+    //I put the result in to an array  so that it would cancel out the array that it comes in This is called Destructuring!!!
+    const [result] = await collection.find(req.params.id)
     return res.status(200).send(result)
 })
 //get one by catagory
@@ -55,7 +57,7 @@ app.delete('/gearlist/', async (req, res)=>{
 // })
 
 //update by id
-app.put('/:id', async (req, res)=>{
+app.put('/gearlist/:id', async (req, res)=>{
     const result = await collection.findOneAndUpdate(req.params.id, req.body)
    return res.status(200).send(result)
 })
