@@ -31,7 +31,7 @@ app.get('/category/:category', async (req, res) =>{
 
 //get one by id 
 app.get('/:id', async (req, res) =>{
-    console.log("you found me")
+    // console.log("you found me")
     //I put the result in to an array  so that it would cancel out the array that it comes in This is called Destructuring!!!
     const [result] = await collection.find(req.params.id)
     return res.status(200).send(result)
@@ -40,13 +40,14 @@ app.get('/:id', async (req, res) =>{
 
 //post a new entry maybe not getting the data through
 app.post('/', async (req, res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     const result = await collection.insert(req.body)
     return res.status(200).send(result)
 
 })
 //delete one entry by id
 app.delete('/gearlist/', async (req, res)=>{
+    console.log(req.body)
     await collection.findOneAndDelete(req.body)
     return res.status(200).send(await collection.find())    
 })
@@ -58,6 +59,7 @@ app.delete('/gearlist/', async (req, res)=>{
 
 //update by id
 app.put('/gearlist/:id', async (req, res)=>{
+    console.log(req.body)
     const result = await collection.findOneAndUpdate(req.params.id, req.body)
    return res.status(200).send(result)
 })
