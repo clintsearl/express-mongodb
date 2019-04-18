@@ -20,10 +20,13 @@ const collection = db.get('gear')
 
 app.use(bodyParser.json())
 //get all entries
-app.get('/', async (req, res) => {
+app.get('/', async (req, res) => { try {
     const result= await collection.find({})
     return await res.status(200).send(result)
-})
+    } catch (error) {
+    return res.status(500),console.error(error)
+    }
+})    
 app.get('/category/:category', async (req, res) =>{
     const result = await collection.find({category: req.params.category}, {})
     return res.status(200).send(result)
