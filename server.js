@@ -6,6 +6,7 @@ const monk = require('monk')
 const cors = require('cors')
 // const MongoClient = require("mongodb").MongoClient
 // const ObjectId = require("mongodb").ObjectID
+//keep alive
 // All of the instances within the url it is called gearList that is the name of the database cluster
 const url = 'mongodb://clintse:clintspassword@gearlist-shard-00-00-nroed.mongodb.net:27017,gearlist-shard-00-01-nroed.mongodb.net:27017,gearlist-shard-00-02-nroed.mongodb.net:27017/gearList?ssl=true&replicaSet=gearList-shard-0&authSource=admin&retryWrites=true'
 // const url= 'mongodb+srv://clintse:clintspassword@gearlist-nroed.mongodb.net/test?retryWrites=true'
